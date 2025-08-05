@@ -2,15 +2,15 @@
 import { Server } from "http";
 import app from "./app";
 import mongoose from "mongoose";
+import { env } from "process";
+import { envVars } from "./app/config/env";
 let server: Server;
 async function bootstrap() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://superAdmin:gM1ojoy8u9DnFDQ6@cluster0.gqpfnmn.mongodb.net/voyagepro?retryWrites=true&w=majority"
-    );
+    await mongoose.connect(envVars.MONGO_URI);
     console.log("Database connected");
-    server = app.listen(5000, () => {
-      console.log(`App listening on port 5000`);
+    server = app.listen(envVars.PORT, () => {
+      console.log(`App listening on port ${envVars.PORT}`);
     });
   } catch (error) {
     console.log("Error during bootstrap:", error);

@@ -4,6 +4,7 @@ import app from "./app";
 import mongoose from "mongoose";
 import { env } from "process";
 import { envVars } from "./app/config/env";
+import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 let server: Server;
 async function bootstrap() {
   try {
@@ -17,4 +18,7 @@ async function bootstrap() {
   }
 }
 
-bootstrap();
+(async () => {
+  await bootstrap();
+  await seedSuperAdmin();
+})();
